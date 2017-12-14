@@ -291,6 +291,7 @@ namespace spdlog
 		private:
 			std::chrono::system_clock::time_point _next_rotation_tp()
 			{
+				std::chrono::system_clock::time_point result;
 				auto now = std::chrono::system_clock::now();
 				time_t tnow = std::chrono::system_clock::to_time_t(now);
 				tm date = spdlog::details::os::localtime(tnow);
@@ -298,9 +299,10 @@ namespace spdlog
 				date.tm_sec = _rotation_second;
 				auto rotation_time = std::chrono::system_clock::from_time_t(std::mktime(&date));
 				if (rotation_time > now)
-					return rotation_time;
+					result = rotation_time;
 				else
-					return std::chrono::system_clock::time_point(rotation_time + std::chrono::minutes(60));
+					result = std::chrono::system_clock::time_point(rotation_time + std::chrono::minutes(60));
+				return result;
 			}
 
 			filename_t _base_filename;
