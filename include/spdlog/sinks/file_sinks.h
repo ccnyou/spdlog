@@ -174,6 +174,7 @@ namespace spdlog
 		*/
 		struct default_hourly_file_name_calculator
 		{
+			// Create filename for the form filename.YYYY-MM-DD_hh.ext
 			static filename_t calc_filename(const filename_t& filename)
 			{
 				std::tm tm = spdlog::details::os::localtime();

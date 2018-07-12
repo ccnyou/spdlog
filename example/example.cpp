@@ -23,9 +23,15 @@ void err_handler_example();
 
 namespace spd = spdlog;
 
+// hourly log example
+int main(int, char*[]) {
+	auto logger = spd::hourly_logger_mt("example", "hourly_log/hourly.txt");
+	logger->flush_on(spd::level::info);
+	logger->log(spd::level::info, "Hello World");
 	return 0;
 }
 
+int default_example(int, char*[])
 {
     try
     {
