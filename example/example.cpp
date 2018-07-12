@@ -22,7 +22,10 @@ void user_defined_example();
 void err_handler_example();
 
 namespace spd = spdlog;
-int main(int, char*[])
+
+	return 0;
+}
+
 {
     try
     {
@@ -105,6 +108,8 @@ int main(int, char*[])
         std::cout << "Log init failed: " << ex.what() << std::endl;
         return 1;
     }
+
+	return 0;
 }
 
 void async_example()

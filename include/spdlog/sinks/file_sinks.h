@@ -170,6 +170,22 @@ namespace spdlog
 		};
 
 		/*
+		* Default generator of hourly log file names.
+		*/
+		struct default_hourly_file_name_calculator
+		{
+			static filename_t calc_filename(const filename_t& filename)
+			{
+				std::tm tm = spdlog::details::os::localtime();
+				filename_t basename, ext;
+				std::tie(basename, ext) = details::file_helper::split_by_extenstion(filename);
+				std::conditional<std::is_same<filename_t::value_type, char>::value, fmt::MemoryWriter, fmt::WMemoryWriter>::type w;
+				w.write(SPDLOG_FILENAME_T("{}_{:04d}-{:02d}-{:02d}_{:02d}{}"), basename, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, ext);
+				return w.str();
+			}
+		};
+
+		/*
 		 * Generator of daily log file names in format basename.YYYY-MM-DD.ext
 		 */
 		struct dateonly_daily_file_name_calculator
@@ -253,7 +269,7 @@ namespace spdlog
 		/*
 		* Rotating file sink based on date. rotates at midnight
 		*/
-		template<class Mutex, class FileNameCalc = default_daily_file_name_calculator>
+		template<class Mutex, class FileNameCalc = default_hourly_file_name_calculator>
 		class hourly_file_sink SPDLOG_FINAL :public base_sink < Mutex >
 		{
 		public:
@@ -268,7 +284,8 @@ namespace spdlog
 				if (rotation_minute < 0 || rotation_minute > 59 || rotation_second < 0 || rotation_second > 59)
 					throw spdlog_ex("hourly_file_sink: Invalid rotation time in ctor");
 				_rotation_tp = _next_rotation_tp();
-				_file_helper.open(FileNameCalc::calc_filename(_base_filename));
+				const auto &fileName = FileNameCalc::calc_filename(_base_filename);
+				_file_helper.open(fileName);
 			}
 
 
