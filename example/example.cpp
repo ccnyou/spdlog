@@ -20,18 +20,12 @@ void syslog_example();
 void android_example();
 void user_defined_example();
 void err_handler_example();
+void horly_logger_example();
 
 namespace spd = spdlog;
 
-// hourly log example
-int main(int, char*[]) {
-	auto logger = spd::hourly_logger_mt("example", "hourly_log/hourly.txt");
-	logger->flush_on(spd::level::info);
-	logger->log(spd::level::info, "Hello World");
-	return 0;
-}
 
-int default_example(int, char*[])
+int main(int, char*[])
 {
     try
     {
@@ -98,6 +92,9 @@ int default_example(int, char*[])
 
         // Change default log error handler
         err_handler_example();
+
+		// Hourly logger
+		horly_logger_example();
 
         // Apply a function on all registered loggers
         spd::apply_all([&](std::shared_ptr<spdlog::logger> l)
@@ -175,4 +172,12 @@ void err_handler_example()
         std::cerr << "my err handler: " << msg << std::endl;
     });
     spd::get("console")->info("some invalid message to trigger an error {}{}{}{}", 3);
+}
+
+// hourly logger 
+void horly_logger_example()
+{
+	auto logger = spd::hourly_logger_mt("example", "hourly_log/hourly.txt");
+	logger->flush_on(spd::level::info);
+	logger->log(spd::level::info, "Hello World");
 }
