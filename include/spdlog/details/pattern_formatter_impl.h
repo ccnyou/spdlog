@@ -5,10 +5,10 @@
 
 #pragma once
 
-#include "../formatter.h"
-#include "../details/log_msg.h"
-#include "../details/os.h"
 #include "../fmt/fmt.h"
+#include "../formatter.h"
+#include "../details/os.h"
+#include "../details/log_msg.h"
 
 #include <chrono>
 #include <ctime>

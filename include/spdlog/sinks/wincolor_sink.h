@@ -6,8 +6,8 @@
 #pragma once
 
 #include "base_sink.h"
-#include "../details/null_mutex.h"
 #include "../common.h"
+#include "../details/null_mutex.h"
 
 #include <mutex>
 #include <string>

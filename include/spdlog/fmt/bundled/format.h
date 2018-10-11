@@ -28,16 +28,16 @@
 #ifndef FMT_FORMAT_H_
 #define FMT_FORMAT_H_
 
-#include <cassert>
-#include <clocale>
 #include <cmath>
 #include <cstdio>
-#include <cstring>
 #include <limits>
 #include <memory>
-#include <stdexcept>
 #include <string>
 #include <vector>
+#include <cassert>
+#include <clocale>
+#include <cstring>
+#include <stdexcept>
 #include <utility>  // for std::pair
 
 // The fmt library version in the form major * 10000 + minor * 100 + patch.

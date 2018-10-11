@@ -16,9 +16,9 @@
 #endif
 
 #include <errno.h>
+#include <stdio.h>
 #include <fcntl.h>   // for O_RDONLY
 #include <locale.h>  // for locale_t
-#include <stdio.h>
 #include <stdlib.h>  // for strtod_l
 
 #include <cstddef>

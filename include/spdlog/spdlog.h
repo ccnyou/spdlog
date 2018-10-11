@@ -9,9 +9,9 @@
 
 #define SPDLOG_VERSION "0.14.0"
 
-#include "tweakme.h"
 #include "common.h"
 #include "logger.h"
+#include "tweakme.h"
 
 #include <memory>
 #include <functional>

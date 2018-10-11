@@ -10,8 +10,8 @@
 #ifndef FMT_TIME_H_
 #define FMT_TIME_H_
 
-#include "format.h"
 #include <ctime>
+#include "format.h"
 
 #ifdef _MSC_VER
 # pragma warning(push)

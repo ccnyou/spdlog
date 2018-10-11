@@ -12,8 +12,8 @@
 // 2. Format the message using the formatter function
 // 3. Pass the formatted message to its sinks to performa the actual logging
 
-#include "sinks/base_sink.h"
 #include "common.h"
+#include "sinks/base_sink.h"
 
 #include <vector>
 #include <memory>
@@ -81,7 +81,9 @@ public:
     // error handler
     virtual void set_error_handler(log_err_handler);
     virtual log_err_handler error_handler();
-
+    
+    virtual filename_t calc_log_file_name(const std::tm& time);
+    
 protected:
     virtual void _sink_it(details::log_msg&);
     virtual void _set_pattern(const std::string&, pattern_time_type);

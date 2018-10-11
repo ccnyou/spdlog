@@ -6,12 +6,12 @@
 #pragma once
 
 #include <string>
-#include <initializer_list>
 #include <chrono>
 #include <memory>
 #include <atomic>
 #include <exception>
 #include<functional>
+#include <initializer_list>
 
 #if defined(_WIN32) && defined(SPDLOG_WCHAR_FILENAMES)
 #include <codecvt>

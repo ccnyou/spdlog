@@ -5,10 +5,10 @@
 
 #pragma once
 
+#include "sink.h"
+#include "base_sink.h"
 #include "../details/log_msg.h"
 #include "../details/null_mutex.h"
-#include "base_sink.h"
-#include "sink.h"
 
 #include <algorithm>
 #include <mutex>

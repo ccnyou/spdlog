@@ -6,9 +6,9 @@
 #pragma once
 
 #include "base_sink.h"
+#include "../fmt/fmt.h"
 #include "../details/null_mutex.h"
 #include "../details/file_helper.h"
-#include "../fmt/fmt.h"
 
 #include <algorithm>
 #include <chrono>
@@ -178,12 +178,16 @@ namespace spdlog
 			static filename_t calc_filename(const filename_t& filename)
 			{
 				std::tm tm = spdlog::details::os::localtime();
-				filename_t basename, ext;
-				std::tie(basename, ext) = details::file_helper::split_by_extenstion(filename);
-				std::conditional<std::is_same<filename_t::value_type, char>::value, fmt::MemoryWriter, fmt::WMemoryWriter>::type w;
-				w.write(SPDLOG_FILENAME_T("{}_{:04d}-{:02d}-{:02d}_{:02d}{}"), basename, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, ext);
-				return w.str();
+                return calc_filename(filename, tm);
 			}
+            
+            static filename_t calc_filename(const filename_t& filename, const std::tm &tm) {
+                filename_t basename, ext;
+                std::tie(basename, ext) = details::file_helper::split_by_extenstion(filename);
+                std::conditional<std::is_same<filename_t::value_type, char>::value, fmt::MemoryWriter, fmt::WMemoryWriter>::type w;
+                w.write(SPDLOG_FILENAME_T("{}_{:04d}-{:02d}-{:02d}_{:02d}{}"), basename, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, ext);
+                return w.str();
+            }
 		};
 
 		/*
@@ -289,6 +293,14 @@ namespace spdlog
 				_file_helper.open(fileName);
 			}
 
+            const filename_t& log_file_name() const {
+                return _file_helper.filename();
+            }
+            
+            virtual const filename_t calc_log_file_name(const std::tm& time) const override {
+                const auto &fileName = FileNameCalc::calc_filename(_base_filename, time);
+                return fileName;
+            }
 
 		protected:
 			void _sink_it(const details::log_msg& msg) override

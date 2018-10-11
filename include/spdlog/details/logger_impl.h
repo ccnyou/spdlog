@@ -279,6 +279,16 @@ inline spdlog::log_err_handler spdlog::logger::error_handler()
     return _err_handler;
 }
 
+inline spdlog::filename_t spdlog::logger::calc_log_file_name(const std::tm &time) {
+    const auto& sinks = this->sinks();
+    spdlog::filename_t result;
+    if (sinks.size() > 0) {
+        const auto& sink = sinks[0];
+        result = sink->calc_log_file_name(time);
+    }
+    
+    return result;
+}
 
 inline void spdlog::logger::flush_on(level::level_enum log_level)
 {

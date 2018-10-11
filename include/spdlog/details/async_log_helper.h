@@ -13,11 +13,11 @@
 #pragma once
 
 #include "../common.h"
-#include "../sinks/sink.h"
-#include "../details/mpmc_bounded_q.h"
-#include "../details/log_msg.h"
-#include "../details/os.h"
 #include "../formatter.h"
+#include "../sinks/sink.h"
+#include "../details/os.h"
+#include "../details/log_msg.h"
+#include "../details/mpmc_bounded_q.h"
 
 #include <chrono>
 #include <exception>

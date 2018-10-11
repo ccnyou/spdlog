@@ -28,6 +28,9 @@ public:
     void set_level(level::level_enum log_level);
     level::level_enum level() const;
 
+    // 目前只有 hourly_file_sink 实现
+    virtual const filename_t calc_log_file_name(const std::tm& time) const;
+    
 private:
     level_t _level;
 
@@ -48,6 +51,12 @@ inline level::level_enum sink::level() const
     return static_cast<spdlog::level::level_enum>(_level.load(std::memory_order_relaxed));
 }
 
+// 默认实现，这里应该调到子类才对
+inline const filename_t sink::calc_log_file_name(const std::tm& time) const {
+    static filename_t result;
+    return result;
+}
+    
 }
 }
 

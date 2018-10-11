@@ -11,8 +11,8 @@
 //
 
 #include "sink.h"
-#include "../formatter.h"
 #include "../common.h"
+#include "../formatter.h"
 #include "../details/log_msg.h"
 
 #include <mutex>
