@@ -273,28 +273,6 @@ using daily_file_sink_mt = daily_file_sink<std::mutex>;
 using daily_file_sink_st = daily_file_sink<details::null_mutex>;
 
 /*
-* Default generator of hourly log file names.
-*/
-struct default_hourly_file_name_calculator
-{
-	// Create filename for the form filename.YYYY-MM-DD_hh.ext
-	static filename_t calc_filename(const filename_t& filename)
-	{
-		std::tm tm = spdlog::details::os::localtime();
-		return calc_filename(filename, tm);
-	}
-	
-	static filename_t calc_filename(const filename_t& filename, const std::tm &tm) {
-		filename_t basename, ext;
-		std::tie(basename, ext) = details::file_helper::split_by_extenstion(filename);
-		std::conditional<std::is_same<filename_t::value_type, char>::value, fmt::MemoryWriter, fmt::WMemoryWriter>::type w;
-		w.write(SPDLOG_FILENAME_T("{}_{:04d}-{:02d}-{:02d}_{:02d}{}"), basename, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, ext);
-		return w.str();
-	}
-};
-
-
-/*
 * Rotating file sink based on date. rotates at midnight
 */
 template<class Mutex, class FileNameCalc = default_hourly_file_name_calculator>
