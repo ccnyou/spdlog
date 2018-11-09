@@ -44,7 +44,10 @@
 //
 // WARNING: if your program forks, UNCOMMENT this flag to prevent undefined thread ids in the children logs.
 //
-// #define SPDLOG_DISABLE_TID_CACHING
+// ios 模拟器不支持 thread_local 变量
+#ifdef TARGET_IPHONE_SIMULATOR
+#define SPDLOG_DISABLE_TID_CACHING
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
