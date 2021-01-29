@@ -10,6 +10,7 @@
 //
 #include "../details/registry.h"
 #include "../sinks/file_sinks.h"
+#include "../sinks/hourly_file_sinks.h"
 #include "../sinks/stdout_sinks.h"
 #include "../spdlog.h"
 #ifdef SPDLOG_ENABLE_SYSLOG

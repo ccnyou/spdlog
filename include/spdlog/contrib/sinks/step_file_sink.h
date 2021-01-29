@@ -53,7 +53,7 @@ struct default_step_file_name_calculator
     {
         std::tm tm = spdlog::details::os::localtime();
         filename_t basename, ext;
-        std::tie(basename, ext) = details::file_helper::split_by_extenstion(filename);
+        std::tie(basename, ext) = details::file_helper::split_by_extension(filename);
         std::conditional<std::is_same<filename_t::value_type, char>::value, fmt::MemoryWriter, fmt::WMemoryWriter>::type w;
         w.write(SPDLOG_FILENAME_T("{}_{:04d}-{:02d}-{:02d}_{:02d}-{:02d}-{:02d}{}"), basename, tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday,
             tm.tm_hour, tm.tm_min, tm.tm_sec, tmp_ext);
@@ -184,7 +184,7 @@ private:
         }
 
         filename_t target;
-        std::tie(target, std::ignore) = details::file_helper::split_by_extenstion(_current_filename);
+        std::tie(target, std::ignore) = details::file_helper::split_by_extension(_current_filename);
         target += _ext;
 
         if (details::file_helper::file_exists(_current_filename) && details::os::rename(_current_filename, target) != 0)
