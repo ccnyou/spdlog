@@ -92,9 +92,9 @@ protected:
     }
 
 private:
-    chrono::time_point<system_clock> _next_rotation_tp()
+    std::chrono::time_point<std::chrono::system_clock> _next_rotation_tp()
     {
-        chrono::time_point<system_clock> result;
+        std::chrono::time_point<std::chrono::system_clock> result;
         auto now = std::chrono::system_clock::now();
         __darwin_time_t tnow = std::chrono::system_clock::to_time_t(now);
         tm date = spdlog::details::os::localtime(tnow);
@@ -104,14 +104,14 @@ private:
         if (rotation_time > now)
             result = rotation_time;
         else
-            result = chrono::time_point<system_clock>(rotation_time + duration<long, ratio<60>>(60));
+            result = std::chrono::time_point<std::chrono::system_clock>(rotation_time + std::chrono::duration<long, std::ratio<60>>(60));
         return result;
     }
 
     spdlog::filename_t _base_filename;
     int _rotation_minute;
     int _rotation_second;
-    chrono::time_point<system_clock> _rotation_tp;
+    std::chrono::time_point<std::chrono::system_clock> _rotation_tp;
     spdlog::details::file_helper _file_helper;
 };
 

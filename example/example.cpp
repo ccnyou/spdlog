@@ -20,7 +20,7 @@ void syslog_example();
 void android_example();
 void user_defined_example();
 void err_handler_example();
-void horly_logger_example();
+void hourly_logger_example();
 
 namespace spd = spdlog;
 int main(int, char *[])
@@ -90,8 +90,8 @@ int main(int, char *[])
         // Change default log error handler
         err_handler_example();
 
-		// Hourly logger
-		horly_logger_example();
+        // Hourly logger
+        hourly_logger_example();
 
         // Apply a function on all registered loggers
         spd::apply_all([&](std::shared_ptr<spdlog::logger> l) { l->info("End of example."); });
@@ -168,9 +168,9 @@ void err_handler_example()
 }
 
 // hourly logger 
-void horly_logger_example()
+void hourly_logger_example()
 {
-	auto logger = spd::hourly_logger_mt("example", "hourly_log/hourly.txt");
+	auto logger = spd::hourly_logger_mt("example", "./hourly.txt");
 	logger->flush_on(spd::level::info);
 	logger->log(spd::level::info, "Hello World");
 }
